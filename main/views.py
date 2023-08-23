@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from .forms import signUpForm
-# Create your views here.
+
 def home(request):
     
     # Check to see if logging in
@@ -41,6 +41,6 @@ def register_user(request):
 			return redirect('home')
 	else:
 		form = signUpForm()
-		return render(request, 'register.html', {'form':form})
-	return render(request, 'register.html', {'form':form})
+		return render(request, 'register1.html', {'form':form})
+	return render(request, 'register1.html', {'form':form})
 
