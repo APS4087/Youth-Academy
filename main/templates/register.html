@@ -1,25 +1,67 @@
-{% extends 'base.html' %}
 
-{% block content %}
+
+
 <div class="col-md-6 offset-md-3">
-<h1>Register</h1>
-<br/>
+	{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'style.css' %}" />
+    <title>Register</title>
+  </head>
+  <body>
+    <form method="POST" action="">
+        {% csrf_token %}
+      <div class="container">
+        <h1>Staff Account Registration</h1>
 
-<form method="POST" action="">
-    {% csrf_token %}
-    {% if form.errors %}
-			<div class="alert alert-warning alert-dismissible fade show" role="alert">
-			  Your Form Has Errors
-			  {% for field in form %}
-			  	{% if field.errors %}
-			  		{{ field.errors }}
-			  	{% endif %}
-			  {% endfor %}
-			  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-			</div>
-	{% endif %}
-    {{ form.as_p }}
-    <br/>
-        <button type="submit" class="btn btn-secondary">Register</button>
+        <div class="input_form">
+          <label for="">Name</label>
+          <br />
+          {{form.first_name}}
+        </div>
+		<div class="input_form">
+			<label for="">User Name:</label>
+			<br />
+			{{form.username}}
+		  </div>
+        <div class="input_form">
+          <label for="">Email</label>
+          <br />
+          {{form.email}}
+        </div>
+        <div class="input_form">
+          <label for="">Password</label>
+          <br />
+          {{form.password1}}
+        </div>
+		<div class="input_form">
+			<label for="">Enter password again</label>
+			<br />
+			{{form.password2}}
+		  </div>
+        <div class="input_form">
+          <label for="">Phone Number</label>
+          <br />
+          {{form.ph_number}}
+        </div>
+        <div class="input_form">
+          <label for="">Address</label>
+          <br />
+          {{form.address}}
+        </div>
+        <div class="input_form" name="user_type">
+          <label for="">Staff Type</label>
+          <br />
+          {{form.user_type}}
+        </div>
+
+        <button type="submit" class="register_btn">Register</button>
+      </div>
     </form>
-{% endblock %}
+  </body>
+</html>
+

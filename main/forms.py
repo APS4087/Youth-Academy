@@ -2,18 +2,27 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
 
+
+STAFF_CHOICES= [
+    ('admin', 'Admin'),
+    ('student', 'Student'),
+    ('teacher', 'Teacher'),
+
+    ]
+
 class signUpForm(UserCreationForm):
     email = forms.EmailField(label='', widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Email Address'}))
-    first_name = forms.CharField(label='', max_length=100 , widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'First Name'}))
-    last_name = forms.CharField(label='', max_length=100 ,widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Last Name'}))
-    phone_number = forms.CharField(label='', max_length=20, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Phone Number'}))
+    first_name = forms.CharField(label='', max_length=100 , widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Name'}))
+    
+    ph_number = forms.CharField(label='', max_length=20, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Phone Number'}))
     address = forms.CharField(label='', max_length=200, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Address'}))
+    user_type = forms.CharField(label='Staff_type', widget=forms.Select(choices=STAFF_CHOICES))
 
 
 
     class Meta:
         model = User
-        fields =('username', 'first_name', 'last_name', 'email', 'phone_number', 'address', 'password1', 'password2')
+        fields =('username', 'first_name', 'email', 'ph_number', 'address', 'password1', 'password2', 'user_type')
 
     def __init__(self, *args, **kwargs): 
         super(signUpForm, self).__init__(*args, **kwargs)
@@ -23,9 +32,9 @@ class signUpForm(UserCreationForm):
         self.fields['username'].label = ''
         self.fields['username'].help_text = '<span class="form-text text-muted"><small>Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</small></span>'
 
-        self.fields['phone_number'].widget.attrs['class'] = 'form-control'
-        self.fields['phone_number'].widget.attrs['placeholder'] = 'Phone Number'
-        self.fields['phone_number'].label = ''
+        self.fields['ph_number'].widget.attrs['class'] = 'form-control'
+        self.fields['ph_number'].widget.attrs['placeholder'] = 'Phone Number'
+        self.fields['ph_number'].label = ''
         
         self.fields['address'].widget.attrs['class'] = 'form-control'
         self.fields['address'].widget.attrs['placeholder'] = 'Address'

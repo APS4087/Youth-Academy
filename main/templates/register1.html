@@ -1,67 +1,58 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'style.css' %}">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'style.css' %}" />
     <title>Register</title>
-</head>
-<body>
-    <div class="container">
-    
-            <h1>Staff Account Registration</h1>
-      
-        
-        <div class="input_form">
-         <label for="">Name</label>
-         <br>
-        <input type="text" >
+  </head>
+  <body>
+    <form method="POST" action="">
+        {% csrf_token %}
+      <div class="container">
+        <h1>Staff Account Registration</h1>
 
+        <div class="input_form">
+          <label for="">Name</label>
+          <br />
+          <input type="text" />
         </div>
         <div class="input_form">
-            <label for="">Email</label>
-            <br>
-           <input type="email" >
-   
-           </div>
-           <div class="input_form">
-            <label for="">Password</label>
-            <br>
-           <input type="password" >
-   
-           </div>
-           <div class="input_form">
-            <label for="">Phone Number</label>
-            <br>
-           <input type="tel" >
-   
-           </div>
-           <div class="input_form">
-            <label for="">Address</label>
-            <br>
-           <input type="text" >
-   
-           </div>
-           <div class="input_form">
-            <label for="">Staff Type</label>
-            <br>
-            <select name="" id="option">
-                <option value="Admin">Admin</option>
-        <option value="Manager">Manager</option>
-        <option value="Finance">Finance</option>
-        <option value="HR">HR</option>
-        <option value="Developer">Developer</option>
+          <label for="">Email</label>
+          <br />
+          <input type="email" />
+        </div>
+        <div class="input_form">
+          <label for="">Password</label>
+          <br />
+          <input type="password" />
+        </div>
+        <div class="input_form">
+          <label for="">Phone Number</label>
+          <br />
+          <input type="tel" />
+        </div>
+        <div class="input_form">
+          <label for="">Address</label>
+          <br />
+          <input type="text" />
+        </div>
+        <div class="input_form">
+          <label for="">Staff Type</label>
+          <br />
+          <select name="" id="option">
+            <option value="Admin">Admin</option>
+            <option value="Manager">Manager</option>
+            <option value="Finance">Finance</option>
+            <option value="HR">HR</option>
+            <option value="Developer">Developer</option>
+          </select>
+        </div>
 
-            </select>
-   
-           </div>
-
-           <button class="register">
-            Register
-           </button>
-    </div>
-    
-</body>
+        <button class="register">Register</button>
+      </div>
+    </form>
+  </body>
 </html>
