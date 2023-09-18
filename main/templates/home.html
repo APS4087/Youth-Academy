@@ -9,12 +9,115 @@
         {% csrf_token %}
       
       {% if user.is_authenticated %}
-      <h1>main page show here...testing</h1>
-      {% else %}
+      <div class="card bg-light ms-4 me-4 mb-4">
+        <div class="card-header">
+          <i class="fa-solid fa-list fa-lg"></i> Student Records
+        </div>
+        <div class="card-body">
+          <p class="card-text">
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    
+                    <th scope="col">Staff Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Staff Type</th>
+                    <th scope="col">Address</th>
+                    
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for staff in staffs_and_details %}
+                    {% if not staff.is_admin %} 
+                  <tr>
+                    
+                    <td>{{ staff.first_name }}</td>
+          
+                    <td>{{ staff.email }}</td>
+                    <td>{{ staff.account.user_type }}</td>
+                    <td>{{ staff.account.address }}</td>
+                    <td>
+                      <button type="button" class="btn btn-success me-1" href="{% url 'view_staff' staff.id %}" data-bs-toggle="modal" data-bs-target="#myModal{{staff.id}}">
+                        <i class="fa-solid fa-circle-info fa-lg"></i>
+                      </button>
+                    <!-- Modal - View Staff -->
+                    <div class="modal" id="myModal{{staff.id}}" tabindex="-1" aria-labelledby="myModalLabel1" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title">
+                              Staff: {{ staff.first_name }}
+                            </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true"></span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <ul class="list-unstyled">
+                              
+                              <li>Staff Name: <strong>{{ staff.first_name }}</strong></li>
+                           
+                              <li>Email: <strong>{{ staff.email }}</strong></li>
+                              <li>Staff Type: <strong>{{ staff.account.user_type }}</strong></li>
+                              <li>Address <strong>{{ staff.account.address }}</strong></li>
+                            </ul>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <a class="btn btn-warning me-1" href="{% url 'edit' staff.id %}">
+                      <i class="fa-solid fa-pen-to-square fa-lg"></i>
+                    </a>
+
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete{{staff.id}}">
+                      <i class="fa-solid fa-trash-can fa-lg"></i>
+                    </button>
+
+                    <!-- Modal - Delete Student -->
+                    <div class="modal" id="delete{{staff.id}}" tabindex="-1" aria-labelledby="myModalLabel2" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title">
+                              Staff: {{ staff.first_name }}
+                            </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true"></span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <p>Are you sure you want to delete this staff?</p>
+                          </div>
+                          <div class="modal-footer">
+                            <form action="{% url 'delete' staff.id %}" method="POST">
+                              {% csrf_token %}
+                              <input type="submit" class="btn btn-primary" value="Delete">
+                            </form>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                {% endif %}
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </p>
+    </div>
+  </div>
+  {% else %}
       <div class="mb-3">
         <h1>Login</h1>
         <br/>
-        <input type="text" class="form-control" name="username", placeholder="Username" required>
+        <input type="email" class="form-control" name="email", placeholder="Email" required>
         
       </div><br/>
       <div class="mb-3">
@@ -22,8 +125,6 @@
       </div>
       <br/>
       <button type="submit" class="btn btn-secondary">Login</button>
-    
     </form>
     {% endif %}
-
 {% endblock %}

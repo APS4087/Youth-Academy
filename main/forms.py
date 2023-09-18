@@ -1,6 +1,7 @@
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth.models import User
 from django import forms
+from account.models import Account
 
 
 STAFF_CHOICES= [
@@ -16,7 +17,7 @@ class signUpForm(UserCreationForm):
     
     ph_number = forms.CharField(label='', max_length=20, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Phone Number'}))
     address = forms.CharField(label='', max_length=200, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Address'}))
-    user_type = forms.CharField(label='Staff_type', widget=forms.Select(choices=STAFF_CHOICES))
+    user_type = forms.CharField(label='Staff_type', widget=forms.Select(choices=STAFF_CHOICES, attrs={'style': 'width:300px'}))
 
 
 
@@ -48,4 +49,31 @@ class signUpForm(UserCreationForm):
         self.fields['password2'].widget.attrs['class'] = 'form-control'
         self.fields['password2'].widget.attrs['placeholder'] = 'Confirm Password'
         self.fields['password2'].label = ''
-        self.fields['password2'].help_text = '<span class="form-text text-muted"><small>Enter the same password as before, for verification.</small></span>'	
+        self.fields['password2'].help_text = '<span class="form-text text-muted"><small>Enter the same password as before, for verification.</small></span>'
+
+
+class userEditForm(UserChangeForm):
+    email = forms.EmailField(label='', widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Email Address'}))
+    first_name = forms.CharField(label='', max_length=100, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Name'}))
+    ph_number = forms.CharField(label='', max_length=20, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Phone Number'}))
+    address = forms.CharField(label='', max_length=200, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Address'}))
+    user_type = forms.CharField(label='Staff_type', widget=forms.Select(choices=STAFF_CHOICES, attrs={'style': 'width:300px'}))
+
+    def __init__(self, *args, **kwargs):
+        super(userEditForm, self).__init__(*args, **kwargs)
+
+        self.fields['username'].widget.attrs['class'] = 'form-control'
+        self.fields['username'].widget.attrs['placeholder'] = 'User Name'
+        self.fields['username'].label = ''
+        self.fields['username'].help_text = '<span class="form-text text-muted"><small>Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</small></span>'
+
+        # Retrieve the associated Account instance and prefill its data
+        if self.instance and self.instance.account:
+            account = self.instance.account
+            self.fields['ph_number'].initial = account.ph_number
+            self.fields['address'].initial = account.address
+            self.fields['user_type'].initial = account.user_type
+     
+    class Meta:
+        model = User
+        fields = ('username', 'first_name', 'email', 'ph_number', 'address', 'user_type')

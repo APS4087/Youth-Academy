@@ -7,13 +7,13 @@
       <meta http-equiv="X-UA-Compatible" content="IE=edge" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="stylesheet" href="{% static 'style.css' %}" />
-      <title>Register</title>
+      <title>Editing staff</title>
     </head>
     <body>
       <form method="POST" action="">
         {% csrf_token %}
         <div class="container">
-          <h1>Staff Account Registration</h1>
+          <h1>Staff Account Editor</h1>
 
           <!-- Display form errors here -->
           {% if form.errors %}
@@ -44,16 +44,7 @@
             <br />
             {{ form.email }}
           </div>
-          <div class="input_form">
-            <label for="">Password</label>
-            <br />
-            {{ form.password1 }}
-          </div>
-          <div class="input_form">
-            <label for="">Enter password again</label>
-            <br />
-            {{ form.password2 }}
-          </div>
+          
           <div class="input_form">
             <label for="">Phone Number</label>
             <br />
@@ -66,11 +57,11 @@
           </div>
           <div class="input_form" name="user_type">
             <label for="">Staff Type</label>
-            <br>
+            <br />
             {{ form.user_type }}
           </div>
 
-          <button type="submit" class="register_btn">Register</button>
+          <button type="submit" class="register_btn">Update</button>
         </div>
       </form>
     </body>
