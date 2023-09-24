@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="jumbotron text-center bg-primary text-white">
+    <h1 class="display-4">Welcome to Youth Academy</h1>
+    <p class="lead">Learn and grow with our diverse range of courses.</p>
+    
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <img src="{% static "img/pythonCourse.jpeg" %}" class="card-img-top" alt="Python Course Image">
+                <div class="card-body">
+                    <h5 class="card-title">Beginner to Python</h5>
+                    <p class="card-text">A beginner friendly python course.</p>
+                    <a href="#" class="btn btn-primary">Learn More</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <img src="{% static "img/C#Unity.jpeg" %}" class="card-img-top" alt="Course 2 Image">
+                <div class="card-body">
+                    <h5 class="card-title">C# Unity Developer Course</h5>
+                    <p class="card-text">The Complete C# Unity Developer Course to make games is for those who are beginners, artist, and developers.</p>
+                    <a href="#" class="btn btn-primary">Learn More</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <img src="{% static "img/DSA_course.jpeg" %}" class="card-img-top" alt="Course 3 Image">
+                <div class="card-body">
+                    <h5 class="card-title">Data Structure & Algorithms for beginners</h5>
+                    <p class="card-text">Basic DSA course for beginners using python</p>
+                    <a href="#" class="btn btn-primary">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

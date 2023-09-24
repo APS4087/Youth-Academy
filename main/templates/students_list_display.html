@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="col-md-6 offset-md-3">
+    
+  <form method="POST" action="{% url 'stu_list' %}">
+    {% csrf_token %}
+  
+  <div class="card bg-light ms-4 me-4 mb-4">
+    <div class="card-header">
+      <i class="fa-solid fa-list fa-lg"></i> Student Records
+    </div>
+    <div class="card-body">
+      <p class="card-text">
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                
+                <th scope="col">Student Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Account Type</th>
+                <th scope="col">Address</th>
+                
+              </tr>
+            </thead>
+            <tbody>
+              {% for stu in students %}
+                
+              <tr>
+                
+                <td>{{ stu.first_name }}</td>
+      
+                <td>{{ stu.email }}</td>
+                <td>{{ stu.account.user_type }}</td>
+                <td>{{ stu.account.address }}</td>
+                <td>
+                  <button type="button" class="btn btn-success me-1" href="{% url 'view_staff' stu.id %}" data-bs-toggle="modal" data-bs-target="#myModal{{stu.id}}">
+                    <i class="fa-solid fa-circle-info fa-lg"></i>
+                  </button>
+                <!-- Modal - View stu -->
+                <div class="modal" id="myModal{{stu.id}}" tabindex="-1" aria-labelledby="myModalLabel1" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title">
+                          stu: {{ stu.first_name }}
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true"></span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <ul class="list-unstyled">
+                          
+                          <li>stu Name: <strong>{{ stu.first_name }}</strong></li>
+                       
+                          <li>Email: <strong>{{ stu.email }}</strong></li>
+                          <li>Account Type: <strong>{{ stu.account.user_type }}</strong></li>
+                          <li>Address <strong>{{ stu.account.address }}</strong></li>
+                        </ul>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <a class="btn btn-warning me-1" href="{% url 'edit' stu.id %}">
+                  <i class="fa-solid fa-pen-to-square fa-lg"></i>
+                </a>
+
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete{{stu.id}}">
+                  <i class="fa-solid fa-trash-can fa-lg"></i>
+                </button>
+
+                <!-- Modal - Delete Student -->
+                <div class="modal" id="delete{{stu.id}}" tabindex="-1" aria-labelledby="myModalLabel2" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title">
+                          stu: {{ stu.first_name }}
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true"></span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <p>Are you sure you want to delete this stu?</p>
+                      </div>
+                      <div class="modal-footer">
+                        <form action="{% url 'delete' stu.id %}" method="POST">
+                          {% csrf_token %}
+                          <input type="submit" class="btn btn-primary" value="Delete">
+                        </form>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            {% endfor %}
+          
+        </tbody>
+      </table>
+    </div>
+  </p>
+</div>
+</div>
+</form>
+
+{% endblock %}
